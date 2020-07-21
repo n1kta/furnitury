@@ -1,0 +1,61 @@
+{% extends 'store/store.html' %}
+{% load static %}
+
+{% block content %}
+	<style type="text/css">
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
+	</style>
+	
+	<main class="main">
+	    <section class="restaurants">
+	        <div class="container">
+	        	<h1>Контакты</h1>
+	        	<p>Вы можете найти нас по адресу: г. Львов, ул. Щирецька 36, Будмаркет</p>
+	        	<p>Телефон отдела продаж: +38 (093) 846 03 96</p>
+	        	<p>Телефон отдела оптовых продаж: +38 (093) 846 03 96</p>
+	        	<p>Email: furnituretut@gmail.com</p>
+	        	<h4>График работы офиса и склада</h4>
+	        	<table>
+	        		<tr>
+	        			<td>Понедельник</td>
+	        			<td>с 9.00 до 21.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Вторник</td>
+	        			<td>с 9.00 до 21.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Среда</td>
+	        			<td>с 9.00 до 21.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Четверг</td>
+	        			<td>с 9.00 до 21.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Пятница</td>
+	        			<td>с 9.00 до 21.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Суббота</td>
+	        			<td>с 10.00 до 20.00</td>
+	        		</tr>
+	        		<tr>
+	        			<td>Воскресенье</td>
+	        			<td>с 10.00 до 20.00</td>
+	        		</tr>
+	        	</table>
+	        </div>
+	    </section>
+	</main>
+{% endblock content %}

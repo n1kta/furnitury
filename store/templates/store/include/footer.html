@@ -1,0 +1,47 @@
+{% load static %}
+<footer class="footer">
+    <div class="container">
+      <div class="footer__inner"> 
+            <div class="footer__left-side">
+                <div class="footer__logo">
+                    <a style="display: block;" href="{% url 'store' %}">
+                        <img src="{% static 'image/logo.png' %}" alt="">
+                    </a>
+                    <p id="telephone">+38 (093) 846 03 96</p>
+                    <p id="telephone">furnituretut@gmail.com</p>
+                </div>
+                <div class="footer__help">
+                    <div class="footer__left">
+                        <ul>
+                            <li><h4 style="text-decoration: none;" class="footer__help-link">О нас</h4></li>
+                            <li><p><a href="{% url 'contact_info' %}" style="text-decoration: none; color: black;">Контакты</a></p></li>
+
+                        </ul>
+                    </div>
+                    <div class="footer__center">
+                        <ul>
+                            <li><h4 style="text-decoration: none;" class="footer__help-link">Интернет-магазин</h4></li>
+                            <li><p><a href="{% url 'delivery_info' %}" style="text-decoration: none; color: black;">Доставка</a></p></li>
+                            <li><p><a href="{% url 'oplata_info' %}" style="text-decoration: none; color: black;">Оплата</a></p></li>
+                            <li><p><a href="{% url 'feedback_info' %}" style="text-decoration: none; color: black;">Обратная связь</a></p></li>
+                        </ul>
+                    </div>
+                    <div class="footer__right">
+                        <ul>
+                            <li><h4 style="text-decoration: none;" class="footer__help-link">Принимаем к оплате</h4></li>
+                            <img style="padding: 0; margin: 0;" width="50px" height="50px" class="footer__social" src="{% static 'image/visa.svg' %}" alt="">
+                            <img style="padding: 0; margin: 0;" width="70px" height="50px" class="footer__social" src="{% static 'image/mastercard.png' %}" alt="">
+                            <img style="padding: 0; margin: 0;" width="150px" height="50px" class="footer__social" src="{% static 'image/private24.png' %}" alt="">
+                            <h4 style="text-decoration: none; margin-top: 2.5%;" class="footer__help-link">Мы в соц. сетях</h4>
+                            <a style="margin: 0;" href="https://www.instagram.com/"  target="_blank" class="footer__social">
+                                <img src="{% static 'image/insta.svg' %}" alt="instagram">
+
+
+                            </a>
+                        </ul>  
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</footer>

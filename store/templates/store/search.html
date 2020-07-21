@@ -1,0 +1,57 @@
+{% extends 'store/store.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main">
+    <section class="promo">
+        <div class="container">
+            <div class="promo__wrapper">
+                <div class="promo__content">
+                    <h1 class="promo__title"></h1>
+                    <div class="promo__text"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="restaurants">
+        <div class="container">
+            <div class="restaurants__inner">
+                <h1 class="restaurants__title">Категории</h1>
+                <form action="{% url 'searchCategory' %}" method="POST" class="restaurants__form">
+                    {% csrf_token %}
+                    <input type="search" class="restaurants__form-input" placeholder="Поиск по категориям" name="search_form">
+                </form>
+            </div>
+            <div class="cards">
+                {% for category in search_item %}
+                <div style="margin-right: 10px;" class="cards__item" data-wow-delay='0.2s'> 
+                    <div class="cards__item-img">
+                      <a href="{% url 'subcategory' category.id %}">
+                          {% if category.image %}  
+                            <img src="{{ category.image.url }}" alt="Pizza +">
+                          {% endif %}
+                      </a>
+                    </div>
+                    <div class="cards__item-wrapper">
+                        <div class="cards__item-header">
+                            <div class="item__header-name">
+                                <a href="{% url 'subcategory' category.id %}" class="item__header-link">{{ category.name }}</a> 
+                            </div>
+                        </div>
+
+                        <div class="cards__item-info">
+                            <div class="item__info-rating">
+                                <img src="{% static 'image/star.svg' %}" alt="star">
+                                4.5
+                            </div>
+                                <div class="item__info-price">Количество подкатегорий ({{category.subcategory.count}})</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>  <!--/cards -->
+        </div>
+    </section>
+</main>
+{% endblock content %}

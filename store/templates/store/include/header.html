@@ -1,0 +1,25 @@
+{% load static %}
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__logo">
+                <a href="{% url 'store' %}">
+                <img src="{% static 'image/logo.png' %}" alt="Logo">
+                </a>
+                <div style="margin-left: 15px;" class="header__logo__under">
+                    <h3>Мы работаем:</h3>
+                    <p>С 9.00 до 21.00</p>
+                </div>
+                <div style="margin-left: 30px" class="header__logo__under__left">
+                    <p style="padding: 0; margin: 0; margin-top: 5%;" id="telephone">+38 (093) 846 03 96</p>
+                    <p style="padding: 0; margin: 0;" id="telephone">furnituretut@gmail.com</p>
+                </div>
+            </div>
+            <div class="header__user">
+                <button type="button" id="cart-button" class="button button--cart">Корзина</button>
+                <p style="display: flex; justify-content: center; align-items: center;
+                position: relative;z-index: 1; right: 15px; top: -20px;" id="cart-total">{{ cartItems }}</p>
+            </div>
+        </div>
+    </div>
+</header>

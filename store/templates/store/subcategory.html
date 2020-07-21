@@ -1,0 +1,57 @@
+{% extends 'store/store.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main">
+        <section class="restaurants">
+            <div class="container">
+                <div class="restaurants__inner">
+                    <h1 class="restaurants__title">{{ category.name }}</h1>
+                    <div class="cards__item-info">
+                        <div class="item__info-rating">
+                            <img src="{% static 'image/star.svg' %}" alt="star">
+                            5
+                        </div>
+                        <div class="item__info-price">Кол-во ({{ subcategories.count }})</div>
+                        {% for subcategory in subcategories %}
+                            {% if forloop.counter == 1 %}
+                                <div class="item__info-category item__info-category--shop">{{ subcategory.name }} и прочее</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                    <div class="cards">
+                        {% for subcategory in subcategories %}
+                        <div style="margin-right: 10px;" class="cards__item" data-wow-delay='0.2s'>
+                        
+                        <div class="cards__item-img cards__item-img--shop">
+                        <a href="{% url 'products' subcategory.id %}">
+                            {% if subcategory.image %}
+                                <img src="{{ subcategory.image.url }}" alt="">
+                            {% endif %}
+                        </a>
+                        </div>
+                        <div class="cards__item-wrapper">
+                            <div class="cards__item-header">
+                                <div class="item__header-name">
+                                    <a href="{% url 'products' subcategory.id %}" class="item__header-link item__header-link--reg">{{ subcategory.name }}</a> 
+                                </div>
+                            </div>
+
+                            <div class="cards__item-info">
+                                <!-- Вот тут -->
+                                <div class="item__info-price">Количество пордуктов ({{ subcategory.p_subcategory.count }})</div>
+                            </div>
+                            <div class="cards__button">
+                                <button type="button" class="button button-cart--shop">
+                                    <a style="color: white; text-decoration: none;" href="{% url 'products' subcategory.id %}" class="cards__button-text">Далее</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>  <!--/cards -->
+            </div>
+        </section>
+    </main>
+{% endblock content %}

@@ -1,0 +1,237 @@
+{% extends 'store/store.html' %}
+{% load static%}
+
+{% block content %}
+    <style type="text/css">
+        .all {
+            padding: 5%;
+            margin-bottom: 5%;
+        }
+        
+        #form {
+            width: 50%;
+            float: left;
+        }
+
+        .box-element {
+            max-width: 100%;
+            height: auto;
+            overflow:hidden;
+        }
+
+        input[type=text], input[type=email], select {
+            width: 100%;
+            padding: 8px 0;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 10px;
+            margin: 25px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <div class="all">
+        <form id="form" action="">
+            {% csrf_token %}
+            <div id="user-info">
+                <div class="form-field">
+                    <input required class="form-control" type="text" name="name" placeholder="И.Ф.О">
+                </div>
+                <div class="form-field">
+                    <input required class="form-control" type="email" name="email" placeholder="Email">
+                </div>
+            </div>
+
+            <hr>
+
+            <div id="shipping-info">
+                <div class="form-field">
+                    <input class="form-control" type="text" name="telephone" placeholder="Номер телефона">
+                </div>
+
+                <p></p>
+
+                <label>Выберите города</label>
+                <select id="city_novaposhta">
+                </select>
+
+                <label>Выберите подходящее отделение или адрес.</label>
+                <select id="branch_novaposhta">
+                </select>
+            </div>
+
+            <hr>
+
+            <input id="form-button" type="submit" value="Continue" style="margin-top: 5px">
+            <button id="payment" class="button button-modal--order hidden" type="submit"><a style="color: white; text-decoration: none;" href="{% url 'pay_view' %}">Оплата</a></button>
+        </form>
+
+        
+        <div class="box-element">
+            <a class="" style="text-decoration: none; color: #4CAF50;" href="{% url 'store' %}">&#x2190;Назад к главной</a>
+            <hr>
+            <h3>Итог заказа</h3>
+            <hr>
+            {% for item in items %}
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{ item.product.imageURL }}"></div>
+                <div style="flex:2"><p>{{ item.product.name }}</p></div>
+                <div style="flex:1"><p>{{ item.product.price }}грн</p></div>
+                <div style="flex:1"><p>x{{ item.quantity }}</p></div>
+            </div>
+            {% endfor %}
+            <h5>Предметы:   {{ order.get_cart_items }}</h5>
+            <h5>Общее количество:   {{ order.get_cart_total|floatformat:2 }}грн</h5>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+    <script type="text/javascript">
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          url: 'https://api.novaposhta.ua/v2.0/json/',
+          data: JSON.stringify({
+            modelName: 'Address',
+            calledMethod: 'searchSettlements',
+            methodProperties: {
+              CityName: '',
+              Limit: 555
+            },
+            apiKey:'4f0b827e74f2b9c677364d187e37a319'
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          xhrFields: {
+            withCredentials: false 
+          },
+          success: function(texts) {
+            let data = texts['data']['0']['Addresses']
+            let city = $('#city_novaposhta')
+
+            for (let i = 0; i < data.length; i++) {
+                city.append(`<option value=${data[i]['MainDescription']}>${data[i]['MainDescription']}</option>`)
+            }
+          },
+        });
+
+        let city = $('#city_novaposhta')
+
+        city.change(function(e){
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: 'https://api.novaposhta.ua/v2.0/json/',
+                data: JSON.stringify({
+                    modelName: 'AddressGeneral',
+                    calledMethod: 'getWarehouses',
+                    methodProperties: {
+                        Language: "ru",
+                        CityName: e.target.value
+                    },
+                    apiKey:'4f0b827e74f2b9c677364d187e37a319'
+                }),
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                xhrFields: {
+                withCredentials: false 
+                },
+                success: function(texts) {
+                    console.log(texts['data'][1]['DescriptionRu'])
+                    let data = texts['data']
+                    let branch = $('#branch_novaposhta')
+
+                    branch.empty()
+                    
+                    for (let i = 0; i < data.length; i++) {
+                        branch.append(`<option value='${data[i]['DescriptionRu']}'>${data[i]['DescriptionRu']}</option>`)
+                    }
+                }
+            })
+        })
+    </script>
+
+    <script>
+        let shipping = '{{ order.shipping }}'
+        let total = '{{ order.get_cart_total|floatformat:2 }}'
+        let form = document.querySelector('#form')
+
+        csrftoken = form.getElementsByTagName("input")[0].value
+
+        let city_novaposhta = document.querySelector('#city_novaposhta')
+        let branch_novaposhta = document.querySelector('#branch_novaposhta')
+
+        let userFormData = {
+                'name': null,
+                'email': null,
+                'total': total,
+        }
+
+        let shippingInfo = {
+                'address': null,
+                'city': null,
+                'telephone': null,
+                'zipcode': null,
+        }
+        
+
+        if (shipping == 'False'){
+            document.querySelector('#shipping-info').innerHTML = ''
+        }
+
+        if (user != 'AnonymousUser'){
+            document.querySelector('#user-info').innerHTML = ''
+        }
+
+        if (shipping == 'False' && user != 'AnonymousUser'){
+            document.querySelector('#form-wrapper').classList.add('hidden')
+            document.querySelector('#payment-info').classList.remove('hidden')
+        }
+
+        form.addEventListener('submit', function(e){
+            if (shipping != 'False'){
+                shippingInfo.address = branch_novaposhta.value
+                shippingInfo.city = city_novaposhta.value
+                shippingInfo.telephone = form.telephone.value
+                console.log(shippingInfo)
+                // shippingInfo.zipcode = form.zipcode.value
+            }
+
+            if (user == 'AnonymousUser'){
+                userFormData.name = form.name.value
+                userFormData.email = form.email.value
+            }
+
+            e.preventDefault()
+            document.querySelector('#form-button').classList.add('hidden')
+            document.querySelector('#payment').classList.remove('hidden')
+
+            localStorage.setItem('userFormData', JSON.stringify(userFormData))
+            localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo))
+            localStorage.setItem('csrftoken', csrftoken)
+        })
+
+        // form.querySelector('#payment').addEventListener('click', function(e){
+        //     submitFormData()
+        // })
+    </script>
+{% endblock content %}

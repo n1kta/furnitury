@@ -1,0 +1,41 @@
+<div id="liqpay_checkout"></div>
+<script>
+    function submitFormData(){
+        let url = '/processOrder/'
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': localStorage.getItem('csrftoken')
+            },
+            body: JSON.stringify({'form': JSON.parse(localStorage.getItem('userFormData')),
+             'shipping': JSON.parse(localStorage.getItem('shippingInfo')) })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            cart = {}
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            window.location.href = "{% url 'store' %}"
+        }).catch((err) => console.log('Error = ', err))
+    }
+
+    window.LiqPayCheckoutCallback = function() {
+        LiqPayCheckout.init({
+            data: "{{ data }}",
+            signature: "{{ signature }}",
+            embedTo: "#liqpay_checkout",
+            mode: "embed" // embed || popup,
+        }).on("liqpay.callback", function(data){
+            if (data.status == 'wait_accept'){
+                submitFormData()
+            }
+        }).on("liqpay.ready", function(data){
+            //
+        }).on("liqpay.close", function(data){
+            //
+        });
+    };
+</script>
+<script src="//static.liqpay.ua/libjs/checkout.js" async></script>

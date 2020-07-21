@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AdminPanel</title>
+</head>
+<body>
+	<style>
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
+
+		tr:nth-child(even) {
+		  background-color: #dddddd;
+		}
+	</style>
+
+	<table>
+		<tr>
+			<th>Покупатель</th>
+			<th>Номер заказа</th>
+			<th>Город</th>
+			<th>Адресс доставки</th>
+			<th>Телефон</th>
+			<th>Дата</th>
+			<th>Товар</th>
+			<th>Кол-во товаров</th>
+		</tr>
+		{% for shipping in shippings %}
+			<tr>
+			<td>{{ shipping.customer }}</td>
+			<td>{{ shipping.order }}</td>
+			<td>{{ shipping.city }}</td>
+			<td>{{ shipping.address }}</td>
+			<td>{{ shipping.phone }}</td>
+			<td>{{ shipping.date_created }}</td>
+			<td>{{ shipping.orderitems.product }}</td>
+			<td>{{ shipping.orderitems.quantity }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>
+

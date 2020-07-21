@@ -1,0 +1,52 @@
+{% extends 'store/store.html' %}
+{% load static %}
+
+{% block content %}
+    <main class="main">
+        <section class="restaurants">
+            <div class="container">
+                <div class="restaurants__inner">
+                    <h1 class="restaurants__title"></h1>
+                    <div class="cards__item-info">
+                        <div class="item__info-rating">
+                            <img src="{% static 'image/star.svg' %}" alt="star">
+                            5
+                        </div>
+                        <div class="item__info-price">От {{ minimal_cost }} до {{ maximum_cost }} грн</div>
+                                <div class="item__info-category item__info-category--shop">{{ subcategory.name }}</div>
+                    </div>
+                </div>
+                    <div class="cards">
+                        {% for product in products %}
+                        <div class="cards__item" data-wow-delay='0.2s'>
+                        
+                        <div class="cards__item-img cards__item-img--shop">
+                        <a href="{% url 'current_product' product.subcategory.id product.id %}">
+                                <img src="{{ product.image.url }}" alt="">
+                        </a>
+                        </div>
+                        <div class="cards__item-wrapper">
+                            <div class="cards__item-header">
+                                <div class="item__header-name">
+                                    <a href="{% url 'current_product' product.subcategory.id product.id %}" class="item__header-link item__header-link--reg">{{product.name}}</a> 
+                                </div>
+                            </div>
+
+                            <div class="cards__item-info">
+                                <div class="item__info-ingredietns">{{ product.description|truncatewords:9 }}</div>
+                            </div>
+                            <div class="cards__button">
+                                <button type="button" class="button button-cart--shop">
+                                    <span data-product="{{ product.id }}" data-action="add" class="cards__button-text update-cart">В корзину</span>
+                                    <img src="{% static 'image/cart-shop.svg' %}" alt="" class="cards__button-img">
+                                </button>
+                                <div class="cards__button-price">{{ product.price }}грн</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>  <!--/cards -->
+            </div>
+        </section>
+    </main>
+{% endblock content %}

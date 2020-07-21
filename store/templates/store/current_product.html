@@ -1,0 +1,50 @@
+{% extends 'store/store.html' %}
+{% load static %}
+
+{% block content %}
+	<style type="text/css">
+		.main {
+			margin-bottom: 1%;
+		}
+
+		.current_product__left {
+			width: 50%;
+            float: left;
+		}
+
+		.current_product__right {
+			max-width: 100%;
+            height: auto;
+            overflow:hidden;
+		}
+
+		.description {
+			font-size: 18px;
+	    	line-height: 21px;
+	    	color: #8C8C8C;
+    	}
+	</style>
+
+	<main class="main">
+        <section class="restaurants">
+            <div class="container">
+            	<div class="current_product">
+            		<div class="current_product__left">
+            			<img src="{{current_product.imageURL}}" width="500" height="450">
+            		</div>
+            		<div class="current_product__right">
+            			<h1>{{ current_product.name }}</h1>
+            			<p class="description">{{ current_product.description }}</p>
+            			<p>Артикль: {{ current_product.product_id }}</p>
+            			<p>Подкатегория: {{ current_product.subcategory }}</p>
+            			<p>Цена: {{ current_product.price }}грн</p>
+            			<button type="button" class="button button-cart--shop">
+                            <span data-product="{{ current_product.id }}" data-action="add" class="cards__button-text update-cart">В корзину</span>
+                            <img src="{% static 'image/cart-shop.svg' %}" alt="" class="cards__button-img">
+                        </button>
+            		</div>
+            	</div>
+    		</div>
+    	</section>
+    </main>
+{% endblock content %}

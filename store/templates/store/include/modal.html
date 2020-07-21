@@ -1,0 +1,42 @@
+{% load static %}
+<div class="modal" id="modal-cart" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-header">
+            <h3 class="modal__title">Корзина</h3>
+            <button class="modal__close" id="modal-close-cart" type="button">&times;</button>
+        </div>
+        <div class="modal__body">
+            {% if items %}
+                {% for item in items %}
+                    <div class="food-row">
+                        <span class="food-row__name">{{ item.product.name }}</span>
+                        <strong class="food-row__price">{{ item.product.price }}грн</strong>
+                        <div class="food-row__counter">
+                            <button data-product="{{ item.product.id }}" data-action="remove" class="counter__button update-cart">-</button>
+                            <span class="counter__num">{{ item.quantity }}</span>
+                            <button data-product="{{ item.product.id }}" data-action="add" class="counter__button update-cart">+</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Ваша корзина путса</p>
+            {% endif %}
+        </div> <!--/modal-body -->
+        <div class="modal__footer">
+            <span class="modal__footer-total-price">{{order.get_cart_total|floatformat:2}}грн</span>
+            <div class="modal__footer-buttons">
+                <button class="button button-modal--order" type="submit"><a style="color: white; text-decoration: none;" href="{% url 'checkout' %}">Оформить заказ</a></button>
+                <button class="button button-modal--cancel" id="modal-close-cartX" type="button">Очистка корзины</button>
+            </div>
+        </div>
+    </div> <!--/modal-dialog-->
+</div>
+
+<script type="text/javascript">
+    modalCloseCartX = document.getElementById('modal-close-cartX');
+    modalCloseCartX.addEventListener('click', function(e){
+        cart = {}
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        window.location.href = "{% url 'store' %}"
+    });
+</script>

@@ -1,0 +1,211 @@
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+    .promo__wrapper {
+        background-size: 400px;
+    }
+    .cards__item {
+        flex-basis: 32%;
+        width: 0;
+        max-width: none;
+    }
+    .cards__item-img img {
+       max-width: 100%;
+
+    }
+    .item__info-category {
+        overflow: hidden;
+
+    }
+    .item__info-category--shop {
+        overflow: visible;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 750px;
+    }
+    .promo__wrapper {
+        background-size: 340px;
+        padding: 50px 0 50px 40px;
+    }
+    .promo__text {
+        font-size: 16px;
+    }
+    .cards__item {
+        flex-basis: 48%;
+    }
+    .footer__help-link {
+        font-size: 16px;
+    }
+
+}
+@media (max-width: 768px) {
+    .container {
+        max-width: 560px;
+    }
+    .cards__item-info {
+        flex-wrap: wrap;
+    }
+    .cards .item__info-rating {
+        flex-basis: 100%;
+    }
+    .item__header-link {
+        font-size: 18px;
+    }
+    .promo__content {
+        max-width: 255px;
+    }
+    .promo__title {
+        font-size: 24px;
+        line-height:  1.4;
+    }
+    .promo__wrapper {
+        background-size: 300px;
+        padding: 24px 0 24px 30px;
+    }
+    .cards__button-price {
+        margin-left: 20px;
+    }
+    .cards__item-img--shop img {
+        width: 280px;
+        object-fit: none;
+    }
+}
+
+@media (max-width: 578px) {
+    .header {
+        padding: 20px 0 0;
+    }
+    .header__logo {
+        margin-bottom: 15px;
+    }
+    .container {
+        max-width: 90%;
+    }
+    .header__inner {
+        flex-wrap: wrap;
+    }
+    .header__form {
+        margin-top: 15px;
+        order: 5;
+        flex: none;
+        flex-basis: 100%;
+    }
+    .promo__wrapper {
+       background-image: none;
+       padding: 24px 0 24px 20px;
+    }
+    .promo__content {
+        max-width: 100%; 
+    }
+    .restaurants__inner {
+        flex-wrap: wrap;
+    }
+    .restaurants__form {
+        width: 100%;
+        margin-top: 15px;
+        max-width: 100%;
+    }
+    .cards__item {
+        margin: 0 auto;
+        flex-basis: 100%;
+        margin-bottom: 20px;
+    }
+    .cards__item:last-child {
+       margin-right: auto; 
+    }
+    .cards__item-img a img {
+        width: 100%;
+    }
+    .cards__item-img--shop img {
+        max-width: 100%;
+        object-fit: cover;
+    }
+
+
+    .footer__right-side {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .footer__inner {
+        flex-wrap: wrap;
+        font-display: column;
+        justify-content: center;
+    }
+    .footer__logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .footer__left-side {
+        flex-direction: column;
+    }
+    .footer__help {
+        display: flex;
+        flex-direction: column;
+    }
+    .footer__help-link {
+        margin-right: 0;
+        text-align: center;
+    }
+    .footer__social {
+         margin-left: 0; 
+    }
+    .footer {
+        padding: 40px 0;
+    }
+    .cards__button-price {
+        margin-left: auto;
+    }
+
+    .modal-dialog {
+        padding: 15px 30px;
+    }
+    .modal-header {
+        margin-bottom: 20px;
+    }
+    .modal__title {
+        font-size: 30px;
+    }
+    .modal__body {
+        margin-bottom: 35px;
+    }
+    .food-row {
+        flex-direction: column;
+    }
+    .food-row__price {
+        margin-left: 0;
+    }
+    .modal__footer {
+        flex-wrap: wrap;
+    }
+    .modal__footer-total-price {
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    .modal__footer-buttons {
+        margin: 0 auto;
+    }
+    .button-modal--order {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .button-modal--cancel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 345px) {
+    .item__info-category--shop {
+        overflow: visible;
+    }
+    .item__info-category--shop::before {
+        display: none;
+    }
+}
