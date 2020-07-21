@@ -13,18 +13,17 @@ SECRET_KEY = '(214sfq!*f$0sq(wqdw3!31d3d4dddq6_uja6pgv5c%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['164.90.215.208']
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'furnitury',
-        'USER': 'postgres',
+        'USER': 'sora',
         'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
