@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(214sfq!*f$0sq(=skv)@vpe7@-p=o5_ltk6qq6_uja6pgv5c%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-ALLOWED_HOSTS = ['127.0.0.1', '164.90.215.208']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -111,7 +111,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -122,9 +121,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 LIQPAY_PUBLIC_KEY = 'i68129856686'
 LIQPAY_PRIVATE_KEY = '9NaYUGy5GTWuleEv8Fx8tvfm1W10MQijyZ05q0BO'
-
-
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     from .prod_settings import *
